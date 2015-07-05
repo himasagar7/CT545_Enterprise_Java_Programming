@@ -1,0 +1,23 @@
+Page 1 of 2
+Assignment 5 (for all students) Programming II / Enterprise Java Programming, Year 2014/2015, Semester 2
+? Use comments to explain your code. Missing or insufficient comments lead to marks deductions.
+? If asked to write Java code, submit source code files only (filename ending .java). No need to submit .class files or the entire project directory (unless explicitly requested).
+? Please create a separate file for each of your Java classes or interfaces.
+? Put all files into a single zip-file named “Assignment5-YourName.zip” and submit via Blackboard.
+? Deadline (strict): Sunday, 29th March, 23:59. Late submissions will receive 0 marks!
+? Please note that the graders are advised to check submissions for plagiarism!
+? If you have questions about the assignment or need help with it, the best approach is to ask a tutor in one of the lab classes (you can and should visit all lab classes). Help with Java programming problems is also provided by ComputerDISC (IT building).
+? You might need to consult the Java API at http://docs.oracle.com/javase/7/docs/api/
+You are given the following application-layer networking protocol for a simple client/server application. A client can send tokens (words) to the server which adds them to a global tokens list in memory. The tokens list has a capacity of 10 different tokens. The tokens should be stored in the tokens list in descending (reverse) lexicographical order. There are three types of requests: SUBMIT, REMOVE and QUIT. The protocol in detail:
+- Client request (a message send from client to server): SUBMIT token Server: If the tokens list is not yet full, add the token to the global list of tokens (if the list doesn’t contain that token yet) or ignore it (if the respective token was already in the list). In both cases, respond by sending message OK to the client. If the list is already full (contains 10 tokens), respond to the client with message ERROR. token stands for a string which doesn’t contain whitespace, see class Scanner (Java API).
+The tokens list should be sorted in descending lexicographical order at any time. Choose an appropriate data structure for representing the tokens list.
+- Client request: REMOVE token Server: If the tokens list contains token, remove it from the tokens list and reply to the client with message OK. Otherwise, reply with ERROR.
+- Client request: QUIT Server: Ends the connection to that client. No response.
+Q1. Create a (non-enterprise-, non-servlet-) Java class for a server which can interact with clients via the Internet in compliance with the given protocol.
+Page 2 of 2
+Do not support concurrent handling of clients here, just the sequential dealing with clients (that is, only after the connection to a client has ended, a new client can connect to the server, and so on). The server should maintain only a single, global tokens list which is never emptied by the server unless by means of REMOVE requests (i.e., not a new empty tokens list for each connecting client). [40 marks]
+Q2. Extend/modify the server written for Q1 so that it can handle multiple clients concurrently. As before, there shall be only one global tokens list (now shared by all client-handling threads). [25 marks]
+Q3. Write a client program in Java which can interact with your server from Q2 (or Q1, if you omitted Q2) via the Internet(*). The client should ask the user to enter commands of the following form (using the keyboard): CONNECT IP-address, SUBMIT token, REMOVE token and BYE. The user can enter as many commands as (s)he wants (in a loop), until BYE is entered, which ends your client program. Each SUBMIT and REMOVE command should be immediately forwarded to the server and the client should print the respective response received from the server. token stands for any word, as in the protocol above. CONNECT IP-address specifies the server which should be used for the subsequent commands (until the users enters a new CONNECT command, which ends the interaction with the current server). The user needs to enter a CONNECT command directly after starting the client program, otherwise SUBMIT and REMOVE commands should fail.
+You can use a fixed port number of your own choice.
+Don’t forget to handle and test error conditions. (*) For simplicity and security reasons, clients and the server should actually run on the same machine (see “localhost” in lecture, i.e., IP-addresses should be 127.0.0.1).
+[35 marks]
